@@ -1,0 +1,13 @@
+﻿<Project>
+
+  <ItemGroup>
+    <_wasmSDKFile Include="$(MSBuildThisFileDirectory)/../runtime/mono-wasm-*.zip" />
+    <_wasmAOTSDKFile Include="$(MSBuildThisFileDirectory)/../runtime/wasm-release-*.zip" />
+  </ItemGroup>
+  
+  <PropertyGroup>
+    <MonoWasmSDKUri>@(_wasmSDKFile)</MonoWasmSDKUri>
+    <MonoWasmAOTSDKUri>@(_wasmAOTSDKFile)</MonoWasmAOTSDKUri>
+  </PropertyGroup>
+  
+</Project>

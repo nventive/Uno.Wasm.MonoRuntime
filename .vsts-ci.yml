@@ -1,0 +1,60 @@
+jobs:
+- job: Windows
+
+  pool:
+    vmImage: 'vs2017-win2016'
+    
+  variables:
+    NUGET_PACKAGES: $(Agent.WorkFolder)\.nuget
+
+  steps:
+  - checkout: self
+    clean: true
+
+  - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: 4.7.0
+      checkLatest: false
+
+  - powershell: .\build\build.ps1 -script build\build.cake
+    displayName: Build 
+
+  - task: MSBuild@1
+    inputs:
+      solution: src/Uno.Wasm.MonoRuntime/Uno.Wasm.MonoRuntime.csproj
+      msbuildLocationMethod: version
+      msbuildVersion: latest
+      msbuildArchitecture: x86
+      msbuildArguments: /r "/p:CombinedConfiguration=$(CombinedConfiguration)"
+      clean: false
+      maximumCpuCount: true
+      restoreNugetPackages: false
+      logProjectEvents: false
+      createLogFile: false
+      
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)
+      Contents: ' $(build.sourcesdirectory)\src\Uno.Wasm.MonoRuntime\Bin\Release\*.nupkg'
+      TargetFolder: $(build.artifactstagingdirectory)
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: PowerShell@2
+    displayName: Authenticode Sign Packages
+    inputs:
+      filePath: build/Sign-Package.ps1
+    env:
+      SignClientUser: $(SignClientUser)
+      SignClientSecret: $(SignClientSecret)
+      SignPackageName: "Uno.Wasm.MonoRuntime"
+      SignPackageDescription: "The Uno Platform"
+      ArtifactDirectory: $(build.artifactstagingdirectory)
+    condition: and(succeeded(), not(eq(variables['build.reason'], 'PullRequest')), not(eq(variables['SignClientSecret'], '')), not(eq(variables['SignClientUser'], '')))
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: $(build.artifactstagingdirectory)
+      ArtifactName: uno-wasm-bootstrap-drop
+      ArtifactType: Container

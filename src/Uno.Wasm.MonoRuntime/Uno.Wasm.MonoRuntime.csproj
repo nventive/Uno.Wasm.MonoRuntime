@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IsTool>true</IsTool>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    
+    <MonoSdkUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1635/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1635/ubuntu-1804-amd64/sdks/wasm/mono-wasm-01f6a0203b0.zip</MonoSdkUrl>
+    <MonoAOTSdKUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1635/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1635/ubuntu-1804-amd64/wasm-release-Linux-01f6a0203b0566dc845eefb453e345f7ede77803.zip</MonoAOTSdKUrl>
+    <MonoSdkCommitId Condition="'$(MonoSdkCommitId)'==''">$([System.IO.Path]::GetFileNameWithoutExtension($(MonoSdkUrl)))</MonoSdkCommitId>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>nventive</Authors>
+    <PackageProjectUrl>https://github.com/nventive/Uno.Wasm.MonoRuntime</PackageProjectUrl>
+    <PackageIconUrl>https://nv-assets.azurewebsites.net/logos/uno.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/nventive/Uno.Wasm.MonoRuntime</RepositoryUrl>
+    <Description>This package provides the binaries and toolchain of the mono-wasm runtime, packaged to be used with the Uno.Wasm.Bootstrap package. (Source: $(MonoSdkCommitId))</Description>
+    <Copyright>Copyright (C) 2015-2018 nventive inc. - all rights reserved</Copyright>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Content Include="build\runtime\*.zip">
+      <Pack>true</Pack>
+      <PackagePath>build/runtime</PackagePath>
+    </Content>
+    <Content Include="build/netstandard1.0/Uno.Wasm.MonoRuntime.props">
+      <Pack>true</Pack>
+      <PackagePath>build/netstandard1.0</PackagePath>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GitVersionTask" Version="4.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <_localSDKFiles Include="$(MSBuildProjectDirectory)\build\runtime\*.zip" />
+  </ItemGroup>
+
+  <Target Name="DownloadMonoRuntime" BeforeTargets="Build" Condition="'@(_localSDKFiles)'==''">
+    <DownloadFile SourceUrl="$(MonoSdkUrl)" DestinationFolder="$(MSBuildProjectDirectory)\build\runtime">
+      <Output TaskParameter="DownloadedFile" ItemName="MonoSDKContent" />
+    </DownloadFile>
+    <DownloadFile SourceUrl="$(MonoAOTSdKUrl)" DestinationFolder="$(MSBuildProjectDirectory)\build\runtime">
+      <Output TaskParameter="DownloadedFile" ItemName="MonoSDKContent" />
+    </DownloadFile>
+
+    <ItemGroup>
+      <Content Include="@(MonoSDKContent)">
+        <Pack>true</Pack>
+        <PackagePath>tools/runtime</PackagePath>
+      </Content>
+    </ItemGroup>
+  </Target>
+
+</Project>
