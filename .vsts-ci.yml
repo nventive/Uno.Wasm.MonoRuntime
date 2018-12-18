@@ -13,11 +13,8 @@ jobs:
 
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: 4.7.0
+      versionSpec: 4.9.2
       checkLatest: false
-
-  - powershell: .\build\build.ps1 -script build\build.cake
-    displayName: Build 
 
   - task: MSBuild@1
     inputs:
@@ -25,7 +22,7 @@ jobs:
       msbuildLocationMethod: version
       msbuildVersion: latest
       msbuildArchitecture: x86
-      msbuildArguments: /r "/p:CombinedConfiguration=$(CombinedConfiguration)"
+      msbuildArguments: /r /p:Configuration=Release "/p:PackageOutputPath=$(build.artifactstagingdirectory)\nuget" /detailedsummary
       clean: false
       maximumCpuCount: true
       restoreNugetPackages: false

@@ -5,8 +5,8 @@
     <IsTool>true</IsTool>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     
-    <MonoSdkUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1635/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1635/ubuntu-1804-amd64/sdks/wasm/mono-wasm-01f6a0203b0.zip</MonoSdkUrl>
-    <MonoAOTSdKUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1635/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1635/ubuntu-1804-amd64/wasm-release-Linux-01f6a0203b0566dc845eefb453e345f7ede77803.zip</MonoAOTSdKUrl>
+    <MonoSdkUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1647/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1647/ubuntu-1804-amd64/sdks/wasm/mono-wasm-475431927c1.zip</MonoSdkUrl>
+    <MonoAOTSdKUrl>https://jenkins.mono-project.com/job/test-mono-mainline-wasm/1647/label=ubuntu-1804-amd64/Azure/processDownloadRequest/1647/ubuntu-1804-amd64/wasm-release-Linux-475431927c124d1b02cdc6a20fba69665a8d29c3.zip</MonoAOTSdKUrl>
     <MonoSdkCommitId Condition="'$(MonoSdkCommitId)'==''">$([System.IO.Path]::GetFileNameWithoutExtension($(MonoSdkUrl)))</MonoSdkCommitId>
   </PropertyGroup>
 
@@ -52,7 +52,7 @@
     <ItemGroup>
       <Content Include="@(MonoSDKContent)">
         <Pack>true</Pack>
-        <PackagePath>tools/runtime</PackagePath>
+        <PackagePath>build/runtime</PackagePath>
       </Content>
     </ItemGroup>
   </Target>
