@@ -41,7 +41,7 @@
     <_localSDKFiles Include="$(MSBuildProjectDirectory)\build\runtime\*.zip" />
   </ItemGroup>
 
-  <Target Name="DownloadMonoRuntime" BeforeTargets="Build" Condition="'@(_localSDKFiles)'==''">
+  <Target Name="DownloadMonoRuntime" BeforeTargets="Build;Pack" Condition="'@(_localSDKFiles)'==''">
     <DownloadFile SourceUrl="$(MonoSdkUrl)" DestinationFolder="$(MSBuildProjectDirectory)\build\runtime">
       <Output TaskParameter="DownloadedFile" ItemName="MonoSDKContent" />
     </DownloadFile>
