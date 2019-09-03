@@ -27,7 +27,7 @@ jobs:
     displayName: Install mono dependencies
 
   - bash: |
-      git clone --recursive https://github.com/jeromelaban/mono -b dev/jela/wasm-dlopen
+      git clone --recursive https://github.com/jeromelaban/mono -b dev/jela/release-dynamic
 
     displayName: Clone mono
 
