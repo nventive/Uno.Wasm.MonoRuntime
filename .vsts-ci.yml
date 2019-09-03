@@ -1,14 +1,14 @@
 resources:
   containers:
   - container: nv-bionic-wasm
-    image: nventive/mono-wasm-build:0.1
+    image: nventive/mono-wasm-build:0.7
 
 jobs:
 - job: Linux
 
   container: nv-bionic-wasm
 
-  timeoutInMinutes: 120
+  timeoutInMinutes: 240
 
   workspace:
     clean: all
