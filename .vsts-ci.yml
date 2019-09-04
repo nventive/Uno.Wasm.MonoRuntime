@@ -38,7 +38,7 @@ jobs:
       echo "DISABLE_MAC=1" >> sdks/Make.config
       echo "DISABLE_DESKTOP=1" >> sdks/Make.config
       echo "ENABLE_WASM_DYNAMIC_RUMTIME=1" >> sdks/Make.config
-      echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
+      # echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
       make -j $(CI_CPU_COUNT) -C sdks/builds provision-wasm
 
     displayName: Provision wasm sdk
