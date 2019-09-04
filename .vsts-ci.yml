@@ -41,31 +41,25 @@ jobs:
       # echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
       make -j $(CI_CPU_COUNT) -C sdks/builds provision-wasm
 
-    displayName: Provision wasm sdk
+    displayName: Provision Wasm SDK
+
+  - bash: |
+      cd mono
+      make -j $(CI_CPU_COUNT) -C sdks/builds configure-wasm NINJA=
+
+    displayName: Configure Wasm SDK
 
   - bash: |
       cd mono
       make -j $(CI_CPU_COUNT) -C sdks/builds build-wasm NINJA=
 
-    displayName: Build wasm archive
+    displayName: Build Wasm SDK
 
   - bash: |
       cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds archive-wasm NINJA=
+      make -j $(CI_CPU_COUNT) -C sdks/builds archive
 
-    displayName: Archive wasm
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds package-wasm-runtime package-wasm-cross package-wasm-bcl
-
-    displayName: Build AOT Toolchain
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/wasm package
-
-    displayName: Package wasm
+    displayName: Archive Wasm SDK
 
   - bash: |
       cd mono
