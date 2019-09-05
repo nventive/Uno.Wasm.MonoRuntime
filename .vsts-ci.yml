@@ -66,6 +66,12 @@ jobs:
 
   - bash: |
       cd mono
+      make -j $(CI_CPU_COUNT) -C sdks/wasm build
+
+    displayName: Build Wasm Runtime
+
+  - bash: |
+      cd mono
       cp wasm-release-Linux-*.zip $(build.artifactstagingdirectory)
       cp sdks/wasm/*.zip $(build.artifactstagingdirectory)
 
