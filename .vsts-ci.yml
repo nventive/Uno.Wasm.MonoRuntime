@@ -60,7 +60,7 @@ jobs:
 
   - bash: |
       cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds archive
+      make -j $(CI_CPU_COUNT) -C sdks/builds archive-wasm
 
     displayName: Archive Wasm SDK
 
