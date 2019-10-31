@@ -12,7 +12,7 @@ This packages provides a stable and persistent source for the runtime, but is pr
 team decides on the best way to publish those binaries.
 
 ## Why is there a dependency on Uno.Wasm.Bootstrap
-The toolchain requires the use of a set of prerequisites, and build step which are currently not provided by the mono SDK, 
+The toolchain requires the use of a set of prerequisites, and build step which is currently not provided by the mono SDK, 
 and the [Uno.Wasm.Bootstrap](https://github.com/unoplatform/Uno.Wasm.Bootstrap) provides this additional tooling.
 
 ## How often is this package updated?
