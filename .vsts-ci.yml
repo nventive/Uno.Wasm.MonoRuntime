@@ -1,7 +1,7 @@
 resources:
   containers:
   - container: nv-bionic-wasm
-    image: nventive/mono-wasm-build:0.7
+    image: unoplatform/mono-wasm-build:1.0
 
 jobs:
 - job: Mono_Build
@@ -20,9 +20,6 @@ jobs:
     CI_CPU_COUNT: 4
 
   steps:
-  #- bash: |
-  #    sudo apt-get update
-  #    sudo apt-get install curl libtool automake autoconf g++ cmake gcc-multilib g++-multilib lld lib32ncurses5-dev nuget mono-devel ninja-build mingw-w64 p7zip-full
   - bash: |
       sudo apt-get update
       sudo apt-get install -y python3-pip locales p7zip-full zip
@@ -30,46 +27,15 @@ jobs:
     displayName: Install mono dependencies
 
   - bash: |
-      git clone --recursive https://github.com/jeromelaban/mono -b dev/jela/release-dynamic
+      git clone --recursive https://github.com/jeromelaban/mono -b dev/jela/gitpod
 
     displayName: Clone mono
 
   - bash: |
       cd mono
-      echo "DISABLE_ANDROID=1" > sdks/Make.config
-      echo "DISABLE_IOS=1" >> sdks/Make.config
-      echo "DISABLE_MAC=1" >> sdks/Make.config
-      echo "DISABLE_DESKTOP=1" >> sdks/Make.config
-      echo "ENABLE_WASM_DYNAMIC_RUMTIME=1" >> sdks/Make.config
-      # echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
-      make -j $(CI_CPU_COUNT) -C sdks/builds provision-wasm
-
-    displayName: Provision Wasm SDK
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds configure-wasm NINJA=
-
-    displayName: Configure Wasm SDK
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds build-wasm NINJA=
+      scripts/ci/build-wasm.sh
 
     displayName: Build Wasm SDK
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds archive-wasm
-
-    displayName: Archive Wasm SDK
-
-  - bash: |
-      cd mono
-      mkdir -p ./sdks/wasm/sdk/packages
-      make -j $(CI_CPU_COUNT) -C sdks/wasm package
-
-    displayName: Build Wasm Runtime
 
   - bash: |
       cd mono
