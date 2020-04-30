@@ -1,7 +1,7 @@
 jobs:
 - job: Mono_Build
 
-  container: nventive/mono-wasm-build:0.7
+  container: unoplatform/mono-wasm-build:1.0
 
   timeoutInMinutes: 240
 
@@ -15,9 +15,6 @@ jobs:
     CI_CPU_COUNT: 2
 
   steps:
-  #- bash: |
-  #    sudo apt-get update
-  #    sudo apt-get install curl libtool automake autoconf g++ cmake gcc-multilib g++-multilib lld lib32ncurses5-dev nuget mono-devel ninja-build mingw-w64 p7zip-full
   - bash: |
       sudo apt-get update
       sudo apt-get install -y python3-pip locales p7zip-full zip
@@ -40,12 +37,6 @@ jobs:
   - bash: |
       cd mono
       make -j $(CI_CPU_COUNT) -C sdks/builds configure-wasm NINJA=
-
-    displayName: Configure Wasm SDK
-
-  - bash: |
-      cd mono
-      make -j $(CI_CPU_COUNT) -C sdks/builds build-wasm NINJA=
 
     displayName: Build Wasm SDK
 
