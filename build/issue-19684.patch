@@ -1,0 +1,16 @@
+diff --git a/mono/mini/interp/interp.c b/mono/mini/interp/interp.c
+index cdf9599220a..655507bb157 100644
+--- a/mono/mini/interp/interp.c
++++ b/mono/mini/interp/interp.c
+@@ -1385,7 +1385,10 @@ static InterpMethodArguments* build_args_from_sig (MonoMethodSignature *sig, Int
+ 			g_print ("build_args_from_sig: margs->fargs [%d]: %p (%f) (frame @ %d)\n", int_f, margs->fargs [int_f], margs->fargs [int_f], i);
+ #endif
+ #if SIZEOF_VOID_P == 4
+-			int_f += 2;
++			if (ptype == MONO_TYPE_R4)
++				int_f ++;
++			else
++				int_f += 2;
+ #else
+ 			int_f++;
+ #endif

@@ -28,6 +28,8 @@ jobs:
 
   - bash: |
       cd mono
+      git apply build/force-enable-idbfs.patch
+      git apply build/issue-19684.patch
       echo "ENABLE_WASM=1" > sdks/Make.config
       echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
       make -j $(CI_CPU_COUNT) -C sdks/builds provision-wasm
