@@ -28,8 +28,12 @@ jobs:
 
   - bash: |
       cd mono
-      git apply build/force-enable-idbfs.patch
-      git apply build/issue-19684.patch
+      git apply $(Build.SourcesDirectory)/build/force-enable-idbfs.patch
+      git apply $(Build.SourcesDirectory)/build/issue-19684.patch
+      git apply $(Build.SourcesDirectory)/build/emscripten-1-38-11.patch
+      git config --global user.email "ci@platform.uno"
+      git config --global user.name "Uno Platform CI"
+      git commit -m "apply patches"
       echo "ENABLE_WASM=1" > sdks/Make.config
       echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
       make -j $(CI_CPU_COUNT) -C sdks/builds provision-wasm
