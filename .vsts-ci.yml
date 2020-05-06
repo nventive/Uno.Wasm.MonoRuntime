@@ -33,6 +33,7 @@ jobs:
       git apply $(Build.SourcesDirectory)/build/emscripten-1-38-11.patch
       git config --global user.email "ci@platform.uno"
       git config --global user.name "Uno Platform CI"
+      git add .
       git commit -m "apply patches"
       echo "ENABLE_WASM=1" > sdks/Make.config
       echo "ENABLE_WASM_THREADS=1" >> sdks/Make.config
