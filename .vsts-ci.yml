@@ -28,8 +28,8 @@ jobs:
 
   - bash: |
       cd mono
+      echo Mono base SHA1: `git rev-parse HEAD`
       git apply $(Build.SourcesDirectory)/build/force-enable-idbfs.patch
-      git apply $(Build.SourcesDirectory)/build/issue-19684.patch
       git apply $(Build.SourcesDirectory)/build/emscripten-1-38-11.patch
       git config --global user.email "ci@platform.uno"
       git config --global user.name "Uno Platform CI"
