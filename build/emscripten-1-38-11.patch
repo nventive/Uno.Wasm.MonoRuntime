@@ -6,7 +6,7 @@ index 85828f258be..2e29fceaee9 100644
  #emcc has lots of bash'isms
  SHELL:=/bin/bash
  
--EMSCRIPTEN_VERSION=1.39.14
+-EMSCRIPTEN_VERSION=1.39.16
 +EMSCRIPTEN_VERSION=1.39.11
  EMSCRIPTEN_LOCAL_SDK_DIR=$(TOP)/sdks/builds/toolchains/emsdk
  
