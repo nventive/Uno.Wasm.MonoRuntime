@@ -28,7 +28,7 @@ jobs:
 
   - bash: |
       cd mono
-      git reset --hard eaa32d13659f0a6b6b5e62ddb49af68b1f9efb6c
+      git reset --hard 335a5949adbb7bd31c19eb9179d300f2097f515c
       echo Mono base SHA1: `git rev-parse HEAD`
       git apply $(Build.SourcesDirectory)/build/force-enable-idbfs.patch
       git apply $(Build.SourcesDirectory)/build/emscripten-1-38-11.patch
