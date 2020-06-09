@@ -27,6 +27,7 @@ jobs:
     displayName: Clone mono
 
   - bash: |
+      set -e
       cd mono
       git reset --hard fdb5e61a5b6982cd7c6f5afb5933e0db0c1d8948
       echo Mono base SHA1: `git rev-parse HEAD`
