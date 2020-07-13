@@ -29,10 +29,9 @@ jobs:
   - bash: |
       set -e
       cd mono
-      git reset --hard fdb5e61a5b6982cd7c6f5afb5933e0db0c1d8948
+      git reset --hard 9ecb588fc742eb16cf83a6298bf490b06076bcc8
       echo Mono base SHA1: `git rev-parse HEAD`
       git apply $(Build.SourcesDirectory)/build/force-enable-idbfs.patch
-      git apply $(Build.SourcesDirectory)/build/emscripten-1-38-11.patch
       git config --global user.email "ci@platform.uno"
       git config --global user.name "Uno Platform CI"
       git add .
