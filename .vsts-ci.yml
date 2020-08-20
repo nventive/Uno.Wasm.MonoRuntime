@@ -29,7 +29,7 @@ jobs:
   - bash: |
       set -e
       cd mono
-      git reset --hard 5b33599427b9e31e151429736a03b9fa53914fd1
+      git reset --hard f564c1d8089123daec9bac2db43718cac0d12d3c
       echo Mono base SHA1: `git rev-parse HEAD`
       git apply $(Build.SourcesDirectory)/build/force-enable-idbfs.patch
       git config --global user.email "ci@platform.uno"
