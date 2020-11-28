@@ -1,6 +1,6 @@
-# Uno.Wasm.WebSockets
+# Uno.WebAssembly.MonoRuntime
 
-Copyright (c) nventive
+Copyright (c) Uno Platform
 
 All rights reserved. 
 
@@ -194,7 +194,7 @@ All rights reserved.
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright [yyyy] [name of copyright owner]
+   Copyright 2020 Uno Platform
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
