@@ -1,0 +1,18 @@
+diff --git a/mono/mini/mini-generic-sharing.c b/mono/mini/mini-generic-sharing.c
+index 5fb8bbb39c9..86f7066ec59 100644
+--- a/mono/mini/mini-generic-sharing.c
++++ b/mono/mini/mini-generic-sharing.c
+@@ -1276,6 +1276,10 @@ get_wrapper_shared_type_full (MonoType *t, gboolean is_field)
+ #else
+ 		return m_class_get_byval_arg (mono_defaults.uint32_class);
+ #endif
++	case MONO_TYPE_R4:
++		return m_class_get_byval_arg (mono_defaults.single_class);
++	case MONO_TYPE_R8:
++		return m_class_get_byval_arg (mono_defaults.double_class);
+ 	case MONO_TYPE_OBJECT:
+ 	case MONO_TYPE_CLASS:
+ 	case MONO_TYPE_SZARRAY:
+-- 
+2.21.0.windows.1
+

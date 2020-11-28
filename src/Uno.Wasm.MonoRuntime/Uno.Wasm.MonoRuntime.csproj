@@ -20,10 +20,19 @@
   </PropertyGroup>
   
   <ItemGroup>
+    
+    <!-- Local build -->
     <Content Include="build\runtime\*.zip">
       <Pack>true</Pack>
       <PackagePath>build/runtime</PackagePath>
     </Content>
+    
+    <!-- CI provided build (downloaded from previous build phase) -->
+    <Content Include="build\runtime\mono-sdk\*.zip">
+      <Pack>true</Pack>
+      <PackagePath>build/runtime</PackagePath>
+    </Content>
+    
     <Content Include="build/netstandard1.0/Uno.Wasm.MonoRuntime.props">
       <Pack>true</Pack>
       <PackagePath>build/netstandard1.0</PackagePath>
@@ -38,10 +47,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Local build -->
     <_localSDKFiles Include="$(MSBuildProjectDirectory)\build\runtime\*.zip" />
+    <!-- CI provided build (downloaded from previous build phase) -->
+    <_localSDKFiles Include="$(MSBuildProjectDirectory)\build\runtime\mono-sdk\*.zip" />
   </ItemGroup>
 
-  <Target Name="DownloadMonoRuntime" BeforeTargets="Build" Condition="'@(_localSDKFiles)'==''">
+  <Target Name="DownloadMonoRuntime" BeforeTargets="Build;Pack" Condition="'@(_localSDKFiles)'==''">
     <DownloadFile SourceUrl="$(MonoSdkUrl)" DestinationFolder="$(MSBuildProjectDirectory)\build\runtime">
       <Output TaskParameter="DownloadedFile" ItemName="MonoSDKContent" />
     </DownloadFile>
